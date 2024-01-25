@@ -1,7 +1,8 @@
+// Setup model
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+// Create User Schema structure
 const userSchema = new Schema({
   username: {
     type: String,
@@ -45,5 +46,6 @@ const userSchema = new Schema({
   },
 });
 
-const UserModel = mongoose.model("FS_User", userSchema);
+// Validate User Model and export to the root ready to use
+const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
