@@ -3,23 +3,24 @@ const router = express.Router();
 
 const User = require("./../models/User_Schema");
 
-// Create Route
-// Mongo 6.0 (.create()) can get callback
-// router.route("/create-user").post(async (req, res, next) => {
-//   await User.create(req.body, (err, data) => {
-//     console.log(req.body);
-//     if (err) {
-//       return next(err);
-//     } else {
-//       console.table(req.body);
-//       res.json(data);
-//     }
-//   });
-// });
-
-router.post("/create-user", async (req) => {
-  await User.create(req.body);
+// User Post Route
+router.post("/create-user", async (req, res) => {
   console.table(req.body);
+  try {
+    const postUser = await User.create(req.body);
+    res.status(201).json(postUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
+// User Get Route
+router.get("/get-user", async (req, res) => {
+  try {
+    const getUsers = await User.find();
+    res.status(200).json(getUsers);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 module.exports = router;
