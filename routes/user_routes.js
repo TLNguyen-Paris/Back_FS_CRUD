@@ -19,6 +19,7 @@ const User = require("./../models/User_Schema");
 
 router.post("/create-user", async (req) => {
   await User.create(req.body);
+  console.table(req.body);
 });
 
 module.exports = router;
