@@ -8,6 +8,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  profession: {
+    type: String,
+    required: true,
+  },
   about: {
     type: String,
     required: true,
