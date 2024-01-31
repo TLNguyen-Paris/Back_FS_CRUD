@@ -5,16 +5,16 @@ const User = require("./../models/User_Schema");
 
 // User Post Route
 router.post("/create-user", async (req, res) => {
-  console.table(req.body);
+  console.log("post backend: ", req.body._value);
   try {
-    const postUser = await User.create(req.body);
+    const postUser = await User.create(req.body._value);
     res.status(201).json(postUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// User Get Route
+//User Get Route
 router.get("/get-user", async (req, res) => {
   try {
     const getUsers = await User.find();

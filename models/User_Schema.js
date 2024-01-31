@@ -54,7 +54,6 @@ const userSchema = new Schema({
   },
   lastupdate_date: {
     type: Array,
-    required: false,
   },
 });
 
