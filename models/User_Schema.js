@@ -48,6 +48,14 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
+  created_date: {
+    type: String,
+    required: true,
+  },
+  lastupdate_date: {
+    type: Array,
+    required: false,
+  },
 });
 
 // Validate User Model and export to the root ready to use

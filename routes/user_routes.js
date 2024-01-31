@@ -18,6 +18,7 @@ router.post("/create-user", async (req, res) => {
 router.get("/get-user", async (req, res) => {
   try {
     const getUsers = await User.find();
+    console.log(getUsers);
     res.status(200).json(getUsers);
   } catch (error) {
     res.status(500).json({ message: error.message });
