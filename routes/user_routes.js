@@ -3,7 +3,7 @@ const router = express.Router();
 
 const User = require("./../models/User_Schema");
 
-// User Post Route
+// POST User Route (create User)
 router.post("/create-user", async (req, res) => {
   console.log("post backend: ", req.body._value);
   try {
@@ -14,12 +14,31 @@ router.post("/create-user", async (req, res) => {
   }
 });
 
-//User Get Route
+// GET All Users Route
 router.get("/get-user", async (req, res) => {
   try {
     const getUsers = await User.find();
-    console.log(getUsers);
     res.status(200).json(getUsers);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET Single User Route
+// router.route("/find-user/:id").get((req, res) => {
+//   User.findById(req.params.id, (error, data) => {
+//     if (error) {
+//       return next(error);
+//     } else {
+//       res.json(data);
+//     }
+//   });
+// });
+router.get("/find-user/:id", async (req, res) => {
+  try {
+    const getSingleUser = await User.findById(req.params.id);
+    console.log("user : ", getSingleUser);
+    res.status(200).json(getSingleUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
