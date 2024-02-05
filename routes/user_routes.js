@@ -5,7 +5,6 @@ const User = require("./../models/User_Schema");
 
 // POST User Route (create User)
 router.post("/create-user", async (req, res) => {
-  console.log("post backend: ", req.body._value);
   try {
     const postUser = await User.create(req.body._value);
     res.status(201).json(postUser);
