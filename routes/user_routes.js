@@ -13,6 +13,24 @@ router.post("/create-user", async (req, res) => {
   }
 });
 
+// PUT User Update
+router.put("/update-user/:id", async (req, res) => {
+  console.log(`params id :${req.params.id}`);
+  console.log(`update data: ${req.body}`);
+  const userID = req.params.id;
+  const updateData = req.body;
+  try {
+    const updateUser = await User.findByIdAndUpdate(userID, updateData);
+    if (!updateUser) {
+      return res.status(404).json({ error: "User not found" });
+    } else {
+      res.json(updateUser);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET All Users Route
 router.get("/get-user", async (req, res) => {
   try {
@@ -24,19 +42,9 @@ router.get("/get-user", async (req, res) => {
 });
 
 // GET Single User Route
-// router.route("/find-user/:id").get((req, res) => {
-//   User.findById(req.params.id, (error, data) => {
-//     if (error) {
-//       return next(error);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
 router.get("/find-user/:id", async (req, res) => {
   try {
     const getSingleUser = await User.findById(req.params.id);
-    console.log("user : ", getSingleUser);
     res.status(200).json(getSingleUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
