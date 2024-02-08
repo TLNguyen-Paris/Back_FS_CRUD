@@ -33,7 +33,7 @@ router.get("/find-user/:id", async (req, res) => {
   }
 });
 
-// PUT User Update (UPDATE selected USer)
+// PUT User Update (UPDATE selected User)
 router.put("/update-user/:id", async (req, res) => {
   console.log(`params id :${req.params.id}`);
   console.log(`update data: ${req.body}`);
@@ -48,6 +48,22 @@ router.put("/update-user/:id", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// DELETE user (DELETE selected User)
+router.delete("/delete-user/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const deleteUser = await User.deleteOne({ _id: userId });
+    if (deleteUser.deletedCount > 0) {
+      res.status(200).json({ message: "User deleted successfully." });
+    } else {
+      res.status(404).json({ message: "User not found." });
+    }
+  } catch (err) {
+    console.error(`Error Delete User : ${err}`);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 module.exports = router;
