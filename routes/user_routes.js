@@ -3,7 +3,7 @@ const router = express.Router();
 
 const User = require("./../models/User_Schema");
 
-// POST User Route (create User)
+// POST User Route (CREATE User)
 router.post("/create-user", async (req, res) => {
   try {
     const postUser = await User.create(req.body._value);
@@ -13,7 +13,27 @@ router.post("/create-user", async (req, res) => {
   }
 });
 
-// PUT User Update
+// GET All Users Route (READ User)
+router.get("/get-user", async (req, res) => {
+  try {
+    const getUsers = await User.find();
+    res.status(200).json(getUsers);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET Single User Route (READ selected User)
+router.get("/find-user/:id", async (req, res) => {
+  try {
+    const getSingleUser = await User.findById(req.params.id);
+    res.status(200).json(getSingleUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// PUT User Update (UPDATE selected USer)
 router.put("/update-user/:id", async (req, res) => {
   console.log(`params id :${req.params.id}`);
   console.log(`update data: ${req.body}`);
@@ -26,26 +46,6 @@ router.put("/update-user/:id", async (req, res) => {
     } else {
       res.json(updateUser);
     }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// GET All Users Route
-router.get("/get-user", async (req, res) => {
-  try {
-    const getUsers = await User.find();
-    res.status(200).json(getUsers);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// GET Single User Route
-router.get("/find-user/:id", async (req, res) => {
-  try {
-    const getSingleUser = await User.findById(req.params.id);
-    res.status(200).json(getSingleUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
