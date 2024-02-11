@@ -35,8 +35,6 @@ router.get("/find-user/:id", async (req, res) => {
 
 // PUT User Update (UPDATE selected User)
 router.put("/update-user/:id", async (req, res) => {
-  console.log(`params id :${req.params.id}`);
-  console.log(`update data: ${req.body}`);
   const userID = req.params.id;
   const updateData = req.body;
   try {
